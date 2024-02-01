@@ -28,51 +28,42 @@ char	*ft_strcat(char *dest, char *src)
 	int	i;
 
 	i = -1;
-	while (dest[++i])
-		;
 	while (*src)
 	{
-		dest[i++] = *src;
+		dest[++i] = *src;
 		src++;
 	}
-	dest[i] = 0;
-	return (dest);
+	dest[++i] = 0;
+	return (&dest[i]);
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
 	char	*strcat;
+	char	*strcat_head;
 	int		nbytes;
 	int		i;
-	int		sep_size;
 
 	if (size == 0)
 	{
-		strcat = (char *) malloc(sizeof(char) * 2);
+		strcat = (char *) malloc(sizeof(char) * 1);
+		strcat[0] = '\0';
 		return (strcat);
 	}
-	sep_size = ft_strlen(sep);
-	nbytes = (size - 1) * sep_size;
+	nbytes = (size - 1) * (ft_strlen(sep));
 	i = -1;
 	while (++i < size)
 		nbytes += (ft_strlen(strs[i]));
 	strcat = (char *) malloc(sizeof(char) * (1 + nbytes));
+	strcat_head = strcat;
 	i = -1;
-	nbytes = -1;
 	while (++i < size)
 	{
-		while (*strs[i])
-		{
-			strcat[++nbytes] = *strs[i];
-			*strs++;
-		}
+		strcat = ft_strcat(strcat, strs[i]);
 		if (i < (size - 1))
-		{
 			strcat = ft_strcat(strcat, sep);
-			nbytes += 
-		}
 	}
-	return (strcat);
+	return (strcat_head);
 }
 /*
 int     main(void)
